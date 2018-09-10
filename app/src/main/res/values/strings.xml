@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Widget Timer</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- Font -->
+    <string name="roboto_regular">sans-serif</string>
+    <string name="roboto_light">sans-serif-light</string>
+    <string name="roboto_condensed">sans-serif-condensed</string>
+    <string name="roboto_thin">sans-serif-thin</string>
+    <string name="roboto_medium">sans-serif-medium</string>
+
+    <string name="number_picker_formatter">%02d</string>
+    <string name="appwidget_text1">Alarm</string>
+    <string name="appwidget_text2">Timer</string>
+    <string name="add_widget1">Alarm</string>
+    <string name="add_widget2">Timer</string>
+</resources>
