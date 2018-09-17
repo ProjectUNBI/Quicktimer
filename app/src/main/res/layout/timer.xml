@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/linearLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:theme="@style/Theme.myTransparent">
 
 
     <com.shawnlin.numberpicker.NumberPicker
@@ -183,7 +184,8 @@
         app:layout_constraintTop_toBottomOf="@+id/hour1"
         app:layout_constraintVertical_bias="0.446"
         app:text="Slide to set timer"
-        app:text_style="italic" />
+        app:text_style="italic"
+        app:inner_color="@color/white"/>
 
     <com.tuyenmonkey.AutoFillEditText
         android:id="@+id/textedit"

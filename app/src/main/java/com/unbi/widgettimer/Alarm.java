@@ -86,6 +86,7 @@ public class Alarm extends AppCompatActivity {
         SharedPreferences pref = getApplicationContext().getSharedPreferences("WORDS", MODE_PRIVATE);
         setupEventCallbacksalarm(hour1, hour2, min1, min2, editTextalarm, pref);
         setupUI(findViewById(R.id.linearLayout1), editTextalarm);
+
 //
 //
 //        // Set typeface
@@ -260,8 +261,7 @@ public class Alarm extends AppCompatActivity {
                     alarmbroadcastIntent(timeobjects.hour, timeobjects.min, timeobjects.label);
                 }
 
-                    finish();
-
+                finish();
             }
         });
         slideme.setOnSlideResetListener(new SlideToActView.OnSlideResetListener() {

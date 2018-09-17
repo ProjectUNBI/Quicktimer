@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Widget Timer</string>
+    <string name="app_name">Quick Timer</string>
     <string name="action_settings">Settings</string>
 
     <!-- Font -->
@@ -14,4 +14,5 @@
     <string name="appwidget_text2">Timer</string>
     <string name="add_widget1">Alarm</string>
     <string name="add_widget2">Timer</string>
+    <string name="description">Timer</string>
 </resources>
