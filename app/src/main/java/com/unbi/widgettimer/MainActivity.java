@@ -77,12 +77,19 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public static boolean getskipui(){
+    public static boolean getskipui(SharedPreferences spref){
 //        Log.d("skipui",String.valueOf(skipui));
+
+
+        skipui = spref.getBoolean("skipui", false);
+        skipuialram = spref.getBoolean("skipuialram", false);
+
         return skipui;
     }
-    public static boolean getskipuialarm(){
+    public static boolean getskipuialarm(SharedPreferences spref){
 //        Log.d("skipuialram",String.valueOf(skipuialram));
+        skipui = spref.getBoolean("skipui", false);
+        skipuialram = spref.getBoolean("skipuialram", false);
         return skipuialram;
     }
     public void ReadSharePreference() {

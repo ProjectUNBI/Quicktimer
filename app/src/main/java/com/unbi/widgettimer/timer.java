@@ -307,7 +307,8 @@ public class timer extends AppCompatActivity {
                 timeobject timeobjects = gettimertime(h1, h2, m1, m2, s1, s2, edittext);
                 long timertime = timerdonow(timeobjects, spref, getApplicationContext());
 //                if(timertime==0){return;}
-                if (!MainActivity.getskipui()) {
+                SharedPreferences sprefmey = getSharedPreferences("switch", MODE_PRIVATE);
+                if (!MainActivity.getskipui(sprefmey)) {
                     broadcastIntentskipui(timertime, timeobjects.label);
                 } else {
                     broadcastIntent(timertime, timeobjects.label);

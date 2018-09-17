@@ -255,7 +255,8 @@ public class Alarm extends AppCompatActivity {
 //                Log.d("KKKKKKKKKKKKK", timeobjects.label);
 //                if(timertime==0){return;}
                 timerdonow(timeobjects, spref, getApplicationContext());
-                if (!MainActivity.getskipuialarm()) {
+                SharedPreferences sprefme = getSharedPreferences("switch", MODE_PRIVATE);
+                if (!MainActivity.getskipuialarm(sprefme)) {
                     alarmbroadcastIntentskipui(timeobjects.hour, timeobjects.min, timeobjects.label);
                 } else {
                     alarmbroadcastIntent(timeobjects.hour, timeobjects.min, timeobjects.label);
