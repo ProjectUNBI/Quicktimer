@@ -78,11 +78,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public static boolean getskipui(){
-        Log.d("skipui",String.valueOf(skipui));
+//        Log.d("skipui",String.valueOf(skipui));
         return skipui;
     }
     public static boolean getskipuialarm(){
-        Log.d("skipuialram",String.valueOf(skipuialram));
+//        Log.d("skipuialram",String.valueOf(skipuialram));
         return skipuialram;
     }
     public void ReadSharePreference() {

@@ -123,7 +123,7 @@ public class Alarm extends AppCompatActivity {
         hour1.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                Log.d("hour1", String.format(Locale.US, "oldVal: %d, newVal: %d", oldVal, newVal));
+//                Log.d("hour1", String.format(Locale.US, "oldVal: %d, newVal: %d", oldVal, newVal));
                 if (newVal == 3 || newVal == 6 || newVal == 9) {
                     hour2.setMaxValue(3);
                 } else {
@@ -136,7 +136,7 @@ public class Alarm extends AppCompatActivity {
         hour2.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                Log.d("hou2", String.format(Locale.US, "oldVal: %d, newVal: %d", oldVal, newVal));
+//                Log.d("hou2", String.format(Locale.US, "oldVal: %d, newVal: %d", oldVal, newVal));
 //                if (hour1.getValue()==3||hour1.getValue()==6||hour1.getValue()==9){
 //                    if (oldVal == 3 & newVal == 0) {
 //                        int sec1val = hour1.getValue();
@@ -172,13 +172,13 @@ public class Alarm extends AppCompatActivity {
         min1.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                Log.d("min1", String.format(Locale.US, "oldVal: %d, newVal: %d", oldVal, newVal));
+//                Log.d("min1", String.format(Locale.US, "oldVal: %d, newVal: %d", oldVal, newVal));
             }
         });
         min2.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                Log.d("min2", String.format(Locale.US, "oldVal: %d, newVal: %d", oldVal, newVal));
+//                Log.d("min2", String.format(Locale.US, "oldVal: %d, newVal: %d", oldVal, newVal));
                 if (oldVal == 9 & newVal == 0) {
                     int sec1val = min1.getValue();
                     sec1val = sec1val + 1;
@@ -249,10 +249,10 @@ public class Alarm extends AppCompatActivity {
         slideme.setOnSlideCompleteListener(new SlideToActView.OnSlideCompleteListener() {
             @Override
             public void onSlideComplete(@NonNull SlideToActView view) {
-                Log.d("PRESS", "\n" + getTime() + " onSlideComplete");
+//                Log.d("PRESS", "\n" + getTime() + " onSlideComplete");
                 //TODO DESTRO AND SEND INTENT
                 timeobject timeobjects = gettimertime(h1, h2, m1, m2, edittext);
-                Log.d("KKKKKKKKKKKKK", timeobjects.label);
+//                Log.d("KKKKKKKKKKKKK", timeobjects.label);
 //                if(timertime==0){return;}
                 timerdonow(timeobjects, spref, getApplicationContext());
                 if (!MainActivity.getskipuialarm()) {
@@ -267,28 +267,28 @@ public class Alarm extends AppCompatActivity {
         slideme.setOnSlideResetListener(new SlideToActView.OnSlideResetListener() {
             @Override
             public void onSlideReset(@NonNull SlideToActView view) {
-                Log.d("PRESS", "\n" + getTime() + " onSlideReset");
+//                Log.d("PRESS", "\n" + getTime() + " onSlideReset");
             }
         });
         slideme.setOnSlideToActAnimationEventListener(new SlideToActView.OnSlideToActAnimationEventListener() {
             @Override
             public void onSlideCompleteAnimationStarted(@NonNull SlideToActView view, float threshold) {
-                Log.d("PRESS", "\n" + getTime() + " onSlideCompleteAnimationStarted - " + threshold + "");
+//                Log.d("PRESS", "\n" + getTime() + " onSlideCompleteAnimationStarted - " + threshold + "");
             }
 
             @Override
             public void onSlideCompleteAnimationEnded(@NonNull SlideToActView view) {
-                Log.d("PRESS", "\n" + getTime() + " onSlideCompleteAnimationEnded");
+//                Log.d("PRESS", "\n" + getTime() + " onSlideCompleteAnimationEnded");
             }
 
             @Override
             public void onSlideResetAnimationStarted(@NonNull SlideToActView view) {
-                Log.d("PRESS", "\n" + getTime() + " onSlideResetAnimationStarted");
+//                Log.d("PRESS", "\n" + getTime() + " onSlideResetAnimationStarted");
             }
 
             @Override
             public void onSlideResetAnimationEnded(@NonNull SlideToActView view) {
-                Log.d("PRESS", "\n" + getTime() + " onSlideResetAnimationEnded");
+//                Log.d("PRESS", "\n" + getTime() + " onSlideResetAnimationEnded");
             }
         });
     }
@@ -325,8 +325,8 @@ public class Alarm extends AppCompatActivity {
         if (timeobj.label == null || timeobj.label.equals("")) {
             timeobj.label = "Alarm";
         }
-        Log.d("TSSSSSSSSS", timeobj.label);
-        Log.d(timeobj.label, String.valueOf(timeobj.hour) + "  " + String.valueOf(timeobj.min) + "   " + String.valueOf(timeobj.sec));
+//        Log.d("TSSSSSSSSS", timeobj.label);
+//        Log.d(timeobj.label, String.valueOf(timeobj.hour) + "  " + String.valueOf(timeobj.min) + "   " + String.valueOf(timeobj.sec));
         wordListA.add(timeobj.label);
 // add elements to al, including duplicates
         Set<String> hs = new HashSet<>();
@@ -341,7 +341,7 @@ public class Alarm extends AppCompatActivity {
             builder.append(",");
         }
         String str = builder.toString();
-        Log.d("GHJK", str);
+//        Log.d("GHJK", str);
         SharedPreferences.Editor editor = pref.edit();
         editor.putString("words", str);
         editor.apply();
