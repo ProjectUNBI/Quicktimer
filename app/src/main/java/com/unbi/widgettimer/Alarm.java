@@ -84,9 +84,8 @@ public class Alarm extends AppCompatActivity {
         min2.setTypeface(getString(R.string.roboto_light));
         setnum(min2, 9);
         SharedPreferences pref = getApplicationContext().getSharedPreferences("WORDS", MODE_PRIVATE);
-        setupEventCallbacksalarm(hour1, hour2, min1, min2,  editTextalarm, pref);
-        setupUI(findViewById(R.id.linearLayout1),editTextalarm);
-
+        setupEventCallbacksalarm(hour1, hour2, min1, min2, editTextalarm, pref);
+        setupUI(findViewById(R.id.linearLayout1), editTextalarm);
 //
 //
 //        // Set typeface
@@ -191,7 +190,6 @@ public class Alarm extends AppCompatActivity {
                 }
             }
         });
-
         editTextalarm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -206,7 +204,6 @@ public class Alarm extends AppCompatActivity {
                 hour2.setMaxValue(9);
             }
         });
-
         hour2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -215,7 +212,6 @@ public class Alarm extends AppCompatActivity {
                 hour2.setMaxValue(9);
             }
         });
-
         min1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -223,7 +219,6 @@ public class Alarm extends AppCompatActivity {
                 min2.setValue(0);
             }
         });
-
         min2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -231,8 +226,6 @@ public class Alarm extends AppCompatActivity {
                 min2.setValue(0);
             }
         });
-
-
     }
 
 
@@ -257,16 +250,18 @@ public class Alarm extends AppCompatActivity {
             public void onSlideComplete(@NonNull SlideToActView view) {
                 Log.d("PRESS", "\n" + getTime() + " onSlideComplete");
                 //TODO DESTRO AND SEND INTENT
-
                 timeobject timeobjects = gettimertime(h1, h2, m1, m2, edittext);
-                Log.d("KKKKKKKKKKKKK",timeobjects.label);
+                Log.d("KKKKKKKKKKKKK", timeobjects.label);
 //                if(timertime==0){return;}
-                timerdonow(timeobjects, spref,getApplicationContext());
-                if (MainActivity.getskipuialarm()) {
-                    alarmbroadcastIntentskipui(timeobjects.hour,timeobjects.min,timeobjects.label);
+                timerdonow(timeobjects, spref, getApplicationContext());
+                if (!MainActivity.getskipuialarm()) {
+                    alarmbroadcastIntentskipui(timeobjects.hour, timeobjects.min, timeobjects.label);
                 } else {
-                    alarmbroadcastIntent(timeobjects.hour,timeobjects.min,timeobjects.label);
+                    alarmbroadcastIntent(timeobjects.hour, timeobjects.min, timeobjects.label);
                 }
+
+                    finish();
+
             }
         });
         slideme.setOnSlideResetListener(new SlideToActView.OnSlideResetListener() {
@@ -318,15 +313,15 @@ public class Alarm extends AppCompatActivity {
         timeob.hour = String.valueOf(h1) + String.valueOf(h2);
         int m1 = min1.getValue();
         int m2 = min2.getValue();
-        timeob.min = String.valueOf(m1)+String.valueOf(m2);
+        timeob.min = String.valueOf(m1) + String.valueOf(m2);
 //        int s1 = sec1.getValue();
 //        int s2 = sec2.getValue();
 //        timeob.sec = String.valueOf(s1)+ String.valueOf(s2);
-        timeob.label=String.valueOf(editText.getText());
+        timeob.label = String.valueOf(editText.getText());
         return timeob;
     }
 
-    private static void timerdonow(timeobject timeobj, SharedPreferences pref,Context context) {
+    private static void timerdonow(timeobject timeobj, SharedPreferences pref, Context context) {
         if (timeobj.label == null || timeobj.label.equals("")) {
             timeobj.label = "Alarm";
         }
@@ -334,8 +329,6 @@ public class Alarm extends AppCompatActivity {
         Log.d(timeobj.label, String.valueOf(timeobj.hour) + "  " + String.valueOf(timeobj.min) + "   " + String.valueOf(timeobj.sec));
         wordListA.add(timeobj.label);
 // add elements to al, including duplicates
-
-
         Set<String> hs = new HashSet<>();
         hs.addAll(wordListA);
         wordListA.clear();
@@ -366,8 +359,7 @@ public class Alarm extends AppCompatActivity {
 //        }
     }
 
-    public void setupUI(View view,final AutoFillEditText editme) {
-
+    public void setupUI(View view, final AutoFillEditText editme) {
 //        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         // Set up touch listener for non-text box views to hide keyboard.
         if (!(view instanceof EditText)) {
@@ -378,18 +370,19 @@ public class Alarm extends AppCompatActivity {
                     return false;
                 }
             });
-        }else {editme.setCursorVisible(true);}
+        } else {
+            editme.setCursorVisible(true);
+        }
         //If a layout container, iterate over children and seed recursion.
         if (view instanceof ViewGroup) {
             for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
                 View innerView = ((ViewGroup) view).getChildAt(i);
-                setupUI(innerView,editme);
+                setupUI(innerView, editme);
             }
         }
     }
 
-    public void  alarmbroadcastIntent(String hour,String min,String msg)
-    {
+    public void alarmbroadcastIntent(String hour, String min, String msg) {
 //        Log.d("WEARE",String.valueOf(val));
 //        int ival = (int) val;
 //        Intent i = new Intent("android.intent.action.SET_TIMER");
@@ -400,13 +393,12 @@ public class Alarm extends AppCompatActivity {
         Intent i = new Intent(AlarmClock.ACTION_SET_ALARM);
         i.putExtra(AlarmClock.EXTRA_SKIP_UI, false);
         i.putExtra(AlarmClock.EXTRA_HOUR, Integer.parseInt(hour));
-        i.putExtra(AlarmClock.EXTRA_MINUTES,Integer.parseInt(min));
+        i.putExtra(AlarmClock.EXTRA_MINUTES, Integer.parseInt(min));
         i.putExtra(AlarmClock.EXTRA_MESSAGE, msg);
         startActivity(i);
     }
-    public void  alarmbroadcastIntentskipui(String hour,String min,String msg)
-    {
 
+    public void alarmbroadcastIntentskipui(String hour, String min, String msg) {
 //        int ival = (int) val;
 //
 //        Intent i = new Intent("android.intent.action.SET_TIMER");
@@ -417,8 +409,15 @@ public class Alarm extends AppCompatActivity {
         Intent i = new Intent(AlarmClock.ACTION_SET_ALARM);
         i.putExtra(AlarmClock.EXTRA_SKIP_UI, true);
         i.putExtra(AlarmClock.EXTRA_HOUR, Integer.parseInt(hour));
-        i.putExtra(AlarmClock.EXTRA_MINUTES,Integer.parseInt(min));
+        i.putExtra(AlarmClock.EXTRA_MINUTES, Integer.parseInt(min));
         i.putExtra(AlarmClock.EXTRA_MESSAGE, msg);
         startActivity(i);
+    }
+
+    @Override
+    protected void onResume() {
+        final SlideToActView slideme = findViewById(R.id.timerbuttonalarm);
+        slideme.resetSlider();
+        super.onResume();
     }
 }

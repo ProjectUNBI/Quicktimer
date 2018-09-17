@@ -103,7 +103,7 @@ public class timer extends AppCompatActivity {
         setnum(sec2, 9);
         SharedPreferences pref = getApplicationContext().getSharedPreferences("WORDS", MODE_PRIVATE);
         setupEventCallbacks(hour1, hour2, min1, min2, sec1, sec2, editText, pref);
-        setupUI(findViewById(R.id.linearLayout),editText);
+        setupUI(findViewById(R.id.linearLayout), editText);
 //
 //
 //        // Set typeface
@@ -244,7 +244,6 @@ public class timer extends AppCompatActivity {
                 hour2.setMaxValue(9);
             }
         });
-
         hour2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -253,7 +252,6 @@ public class timer extends AppCompatActivity {
                 hour2.setMaxValue(9);
             }
         });
-
         min1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -261,7 +259,6 @@ public class timer extends AppCompatActivity {
                 min2.setValue(0);
             }
         });
-
         min2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -269,7 +266,6 @@ public class timer extends AppCompatActivity {
                 min2.setValue(0);
             }
         });
-
         sec1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -277,7 +273,6 @@ public class timer extends AppCompatActivity {
                 sec2.setValue(0);
             }
         });
-
         sec2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -285,8 +280,6 @@ public class timer extends AppCompatActivity {
                 sec2.setValue(0);
             }
         });
-
-
     }
 
 
@@ -311,15 +304,17 @@ public class timer extends AppCompatActivity {
             public void onSlideComplete(@NonNull SlideToActView view) {
                 Log.d("PRESS", "\n" + getTime() + " onSlideComplete");
                 //TODO DESTRO AND SEND INTENT
-
                 timeobject timeobjects = gettimertime(h1, h2, m1, m2, s1, s2, edittext);
-                long timertime=timerdonow(timeobjects, spref,getApplicationContext());
+                long timertime = timerdonow(timeobjects, spref, getApplicationContext());
 //                if(timertime==0){return;}
-                if (MainActivity.getskipui()) {
-                    broadcastIntentskipui(timertime,timeobjects.label);
+                if (!MainActivity.getskipui()) {
+                    broadcastIntentskipui(timertime, timeobjects.label);
                 } else {
-                    broadcastIntent(timertime,timeobjects.label);
+                    broadcastIntent(timertime, timeobjects.label);
                 }
+
+                    finish();
+
             }
         });
         slide.setOnSlideResetListener(new SlideToActView.OnSlideResetListener() {
@@ -371,14 +366,15 @@ public class timer extends AppCompatActivity {
         timeob.hour = String.valueOf(h1) + String.valueOf(h2);
         int m1 = min1.getValue();
         int m2 = min2.getValue();
-        timeob.min = String.valueOf(m1)+String.valueOf(m2);
+        timeob.min = String.valueOf(m1) + String.valueOf(m2);
         int s1 = sec1.getValue();
         int s2 = sec2.getValue();
-        timeob.sec = String.valueOf(s1)+ String.valueOf(s2);
+        timeob.sec = String.valueOf(s1) + String.valueOf(s2);
+        timeob.label = String.valueOf(editText.getText());
         return timeob;
     }
 
-    private static long timerdonow(timeobject timeobj, SharedPreferences pref,Context context) {
+    private static long timerdonow(timeobject timeobj, SharedPreferences pref, Context context) {
         if (timeobj.label == null || timeobj.label.equals("")) {
             timeobj.label = "Timer";
         }
@@ -386,8 +382,6 @@ public class timer extends AppCompatActivity {
         Log.d(timeobj.label, String.valueOf(timeobj.hour) + "  " + String.valueOf(timeobj.min) + "   " + String.valueOf(timeobj.sec));
         wordList.add(timeobj.label);
 // add elements to al, including duplicates
-
-
         Set<String> hs = new HashSet<>();
         hs.addAll(wordList);
         wordList.clear();
@@ -404,23 +398,22 @@ public class timer extends AppCompatActivity {
         SharedPreferences.Editor editor = pref.edit();
         editor.putString("words", str);
         editor.apply();
-        long i=0;
-        String string=timeobj.hour+":"+timeobj.min+":"+timeobj.sec;
-        Log.d("TIMECHIE",string);
+        long i = 0;
+        String string = timeobj.hour + ":" + timeobj.min + ":" + timeobj.sec;
+        Log.d("TIMECHIE", string);
         try {
             DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
             Date reference = dateFormat.parse("00:00:00");
             Date date = dateFormat.parse(string);
             long seconds = (date.getTime() - reference.getTime()) / 1000L;
-            i=seconds;
-        } catch (Exception e){
-            Toast.makeText(context,"Cant'Parse Time",Toast.LENGTH_SHORT);
+            i = seconds;
+        } catch (Exception e) {
+            Toast.makeText(context, "Cant'Parse Time", Toast.LENGTH_SHORT);
         }
         return i;
     }
 
-    public void setupUI(View view,final AutoFillEditText editme) {
-
+    public void setupUI(View view, final AutoFillEditText editme) {
 //        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         // Set up touch listener for non-text box views to hide keyboard.
         if (!(view instanceof EditText)) {
@@ -431,35 +424,43 @@ public class timer extends AppCompatActivity {
                     return false;
                 }
             });
-        }else {editme.setCursorVisible(true);}
+        } else {
+            editme.setCursorVisible(true);
+        }
         //If a layout container, iterate over children and seed recursion.
         if (view instanceof ViewGroup) {
             for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
                 View innerView = ((ViewGroup) view).getChildAt(i);
-                setupUI(innerView,editme);
+                setupUI(innerView, editme);
             }
         }
     }
 
-    public void  broadcastIntent(long val,String msg)
-    {
-        Log.d("WEARE",String.valueOf(val));
+    public void broadcastIntent(long val, String msg) {
+        Log.d("WEARE", String.valueOf(val));
         int ival = (int) val;
         Intent i = new Intent("android.intent.action.SET_TIMER");
-        i.putExtra("android.intent.extra.alarm.SKIP_UI",false);
+        i.putExtra("android.intent.extra.alarm.SKIP_UI", false);
         i.putExtra("android.intent.extra.alarm.LENGTH", ival);
-        i.putExtra("android.intent.extra.alarm.MESSAGE",msg);
+        i.putExtra("android.intent.extra.alarm.MESSAGE", msg);
         startActivity(i);
     }
-    public void  broadcastIntentskipui(long val,String msg)
-    {
 
+    public void broadcastIntentskipui(long val, String msg) {
+        Log.d("WEARE", String.valueOf(val));
         int ival = (int) val;
-
         Intent i = new Intent("android.intent.action.SET_TIMER");
-        i.putExtra("android.intent.extra.alarm.SKIP_UI",true);
+        i.putExtra("android.intent.extra.alarm.SKIP_UI", true);
         i.putExtra("android.intent.extra.alarm.LENGTH", ival);
-        i.putExtra("android.intent.extra.alarm.MESSAGE",msg);
+        i.putExtra("android.intent.extra.alarm.MESSAGE", msg);
         startActivity(i);
+        Log.d("WESENT","THE FIrST");
+    }
+
+    @Override
+    protected void onResume() {
+        final SlideToActView slidetimer = findViewById(R.id.timerbutton);
+        slidetimer.resetSlider();
+        super.onResume();
     }
 }

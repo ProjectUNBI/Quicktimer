@@ -4,6 +4,7 @@ package com.unbi.widgettimer;
         import android.content.SharedPreferences;
         import android.support.v7.app.AppCompatActivity;
         import android.os.Bundle;
+        import android.util.Log;
         import android.view.View;
         import android.widget.Switch;
 
@@ -77,9 +78,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public static boolean getskipui(){
+        Log.d("skipui",String.valueOf(skipui));
         return skipui;
     }
     public static boolean getskipuialarm(){
+        Log.d("skipuialram",String.valueOf(skipuialram));
         return skipuialram;
     }
     public void ReadSharePreference() {
@@ -87,5 +90,11 @@ public class MainActivity extends AppCompatActivity {
         skipui = spref.getBoolean("skipui", false);
         skipuialram = spref.getBoolean("skipuialram", false);
 
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        finish();
     }
 }
